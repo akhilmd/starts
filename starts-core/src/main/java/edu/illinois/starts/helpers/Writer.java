@@ -217,6 +217,16 @@ public class Writer implements StartsConstants {
         }
     }
 
+    // Print only set items.
+    public static void writeToLogCustom(Set<String> set, Logger logger) {
+        List<String> list = new ArrayList<>(set);
+        Collections.sort(list);
+
+        for (String listItem : list) {
+            logger.log(Level.INFO, listItem);
+        }
+    }
+
     public static String millsToSeconds(long value) {
         return String.format("%.03f", (double) value / 1000.0);
     }

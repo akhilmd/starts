@@ -40,7 +40,10 @@ public class SelectMojo extends DiffMojo implements StartsConstants {
         logger = Logger.getGlobal();
         long start = System.currentTimeMillis();
         Set<String> affectedTests = computeAffectedTests();
-        printResult(affectedTests, "AffectedTests");
+        // Print only tests.
+        // logger.log(Level.INFO, STARS + WHITE_SPACE + title + WHITE_SPACE + STARS);
+        // printResult(affectedTests, "AffectedTests:");
+        Writer.writeToLogCustom(affectedTests, Logger.getGlobal());
         long end = System.currentTimeMillis();
         logger.log(Level.FINE, PROFILE_RUN_MOJO_TOTAL + Writer.millsToSeconds(end - start));
         logger.log(Level.FINE, PROFILE_TEST_RUNNING_TIME + 0.0);
@@ -53,10 +56,11 @@ public class SelectMojo extends DiffMojo implements StartsConstants {
         Pair<Set<String>, Set<String>> data = computeChangeData(false);
         Set<String> nonAffectedTests = data == null ? new HashSet<String>() : data.getKey();
         affectedTests.removeAll(nonAffectedTests);
-        if (allTests.equals(nonAffectedTests)) {
-            logger.log(Level.INFO, STARS_RUN_STARS);
-            logger.log(Level.INFO, NO_TESTS_ARE_SELECTED_TO_RUN);
-        }
+        // Print only tests.
+        // if (allTests.equals(nonAffectedTests)) {
+        //     logger.log(Level.INFO, STARS_RUN_STARS);
+        //     logger.log(Level.INFO, NO_TESTS_ARE_SELECTED_TO_RUN);
+        // }
         long startUpdate = System.currentTimeMillis();
         if (updateSelectChecksums) {
             updateForNextRun(nonAffectedTests);
